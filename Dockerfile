@@ -1,4 +1,4 @@
-FROM runpod/worker-comfyui:5.1.0-base
+FROM runpod/worker-comfyui:5.2.0-base
 
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
