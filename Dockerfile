@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p \
     /comfyui/models/diffusion_models \
     /comfyui/models/vae \
-    /comfyui/models/text_encoders
+    /comfyui/models/text_encoders \
+    /comfyui/models/loras/Lora
 
 # 모델 파일 다운로드 (Docker 캐싱 활용을 위해 먼저 실행)
 
@@ -21,10 +22,10 @@ RUN wget -O "/comfyui/models/vae/ae.safetensors" "https://huggingface.co/lovis93
 # 텍스트 인코더 모델들
 RUN wget -O "/comfyui/models/text_encoders/clip_l.safetensors" "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors?download=true"
 RUN wget -O "/comfyui/models/text_encoders/t5xxl_fp16.safetensors" "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors?download=true"
-RUN wget -O "/comfyui/models/text_encoders/t5xxl_fp8_e4m3fn.safetensors" "https://huggingface.co/comfyanonymous/flux_text_encoders/blob/main/t5xxl_fp8_e4m3fn.safetensors?download=true"
+RUN wget -O "/comfyui/models/text_encoders/t5xxl_fp8_e4m3fn.safetensors" "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors?download=true"
 
 # LoRA 모델 - FLUX Turbo Alpha
-RUN wget -O "/comfyui/models/loras/Lora/diffusion_pytorch_model.safetensors" "https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha/blob/main/diffusion_pytorch_model.safetensors?download=true"
+RUN wget -O "/comfyui/models/loras/Lora/diffusion_pytorch_model.safetensors" "https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha/resolve/main/diffusion_pytorch_model.safetensors?download=true"
 
 # ComfyUI-nunchaku 커스텀 노드 설치 (4-bit 양자화 모델 지원)
 RUN cd /comfyui/custom_nodes && \
