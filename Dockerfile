@@ -29,5 +29,5 @@ ENV COMFYUI_REPO_NAME="ComfyUI"
 ENV GIT_PULL="true"
 ENV DOWNLOAD_MODELS="true"
 
-# 엔트리포인트 설정
-ENTRYPOINT ["/start-with-network-volume.sh"]
+# CMD로 설정 (RunPod worker와 호환성을 위해)
+CMD ["/start-with-network-volume.sh"]
