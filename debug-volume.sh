@@ -14,6 +14,9 @@ echo ""
 
 # 마운트 포인트 확인
 echo "=== 볼륨 마운트 확인 ==="
+echo "RUNPOD_VOLUME_PATH 환경변수: ${RUNPOD_VOLUME_PATH:-'설정되지 않음'}"
+echo ""
+
 if [ -d "/workspace" ]; then
     echo "✓ /workspace 존재"
     echo "  내용: $(ls -la /workspace 2>/dev/null | head -5)"

@@ -11,14 +11,25 @@ GIT_PULL=${GIT_PULL:-"true"}
 DOWNLOAD_MODELS=${DOWNLOAD_MODELS:-"true"}
 
 # ===== 네트워크 볼륨 경로 감지 =====
-# Serverless 환경 확인
-if [ -d "$RUNPOD_VOLUME_PATH" ] && [ "$(ls -A $RUNPOD_VOLUME_PATH)" ]; then
-    echo "Detected Serverless environment with network volume at $RUNPOD_VOLUME_PATH"
+# 디버깅 정보 출력
+echo "=== Volume Detection Debug ==="
+echo "Checking /workspace: $(ls -la /workspace 2>&1 | head -3)"
+echo "Checking /runpod-volume: $(ls -la /runpod-volume 2>&1 | head -3)"
+echo "RUNPOD_VOLUME_PATH env: ${RUNPOD_VOLUME_PATH:-'not set'}"
+echo "============================="
+
+# 환경 변수 우선 확인
+if [ -n "$RUNPOD_VOLUME_PATH" ] && [ -d "$RUNPOD_VOLUME_PATH" ] && [ "$(ls -A $RUNPOD_VOLUME_PATH)" ]; then
+    echo "Using RUNPOD_VOLUME_PATH: $RUNPOD_VOLUME_PATH"
     VOLUME_PATH=$RUNPOD_VOLUME_PATH
-# Pod 환경 확인
-elif [ -d "$NETWORK_VOLUME_PATH" ] && [ "$(ls -A $NETWORK_VOLUME_PATH)" ]; then
-    echo "Detected Pod environment with network volume at $NETWORK_VOLUME_PATH"
-    VOLUME_PATH=$NETWORK_VOLUME_PATH
+# /workspace 확인 (Pod와 Serverless 모두 사용 가능)
+elif [ -d "/workspace" ] && [ "$(ls -A /workspace)" ]; then
+    echo "Detected network volume at /workspace"
+    VOLUME_PATH="/workspace"
+# /runpod-volume 확인 (legacy support)
+elif [ -d "/runpod-volume" ] && [ "$(ls -A /runpod-volume)" ]; then
+    echo "Detected network volume at /runpod-volume"
+    VOLUME_PATH="/runpod-volume"
 # 네트워크 볼륨 없음
 else
     echo "No network volume detected, using built-in ComfyUI"
