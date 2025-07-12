@@ -1,0 +1,97 @@
+# ComfyUI 모델 설정 파일
+# 이 파일을 models.yaml로 복사하고 필요한 모델을 설정하세요
+
+models:
+  # Diffusion 모델 (FLUX 등)
+  diffusion_models:
+    - name: "svdq-fp4_r32-flux.1-kontext-dev.safetensors"
+      url: "https://huggingface.co/mit-han-lab/nunchaku-flux.1-kontext-dev/resolve/main/svdq-fp4_r32-flux.1-kontext-dev.safetensors"
+      size: "4.5GB"
+      description: "Nunchaku FLUX Kontext Dev 4-bit 양자화 모델"
+      
+    - name: "flux1-dev-fp8.safetensors"
+      url: "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev-fp8.safetensors"
+      size: "16GB"
+      description: "FLUX.1 Dev FP8 모델"
+      folder: "FLUX"
+      
+  # VAE 모델
+  vae:
+    - name: "ae.safetensors"
+      url: "https://huggingface.co/lovis93/testllm/resolve/ed9cf1af7465cebca4649157f118e331cf2a084f/ae.safetensors"
+      size: "335MB"
+      description: "FLUX VAE 모델"
+      
+  # 텍스트 인코더
+  text_encoders:
+    - name: "clip_l.safetensors"
+      url: "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors"
+      size: "246MB"
+      description: "CLIP-L 텍스트 인코더"
+      
+    - name: "t5xxl_fp16.safetensors"
+      url: "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors"
+      size: "9.5GB"
+      description: "T5-XXL FP16 텍스트 인코더"
+      
+    - name: "t5xxl_fp8_e4m3fn.safetensors"
+      url: "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
+      size: "4.9GB"
+      description: "T5-XXL FP8 텍스트 인코더 (메모리 효율적)"
+      
+  # LoRA 모델
+  loras:
+    - name: "diffusion_pytorch_model.safetensors"
+      url: "https://huggingface.co/alimama-creative/FLUX.1-Turbo-Alpha/resolve/main/diffusion_pytorch_model.safetensors"
+      size: "1.7GB"
+      description: "FLUX Turbo Alpha LoRA"
+      folder: "Lora"  # loras/Lora 하위 폴더
+      
+  # Checkpoint 모델 (Stable Diffusion 등)
+  checkpoints:
+    # - name: "sd_xl_base_1.0.safetensors"
+    #   url: "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors"
+    #   size: "6.9GB"
+    #   description: "SDXL Base 1.0"
+    
+  # CLIP Vision 모델
+  clip_vision:
+    - name: "clip_vision_h.safetensors"
+      url: "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors"
+      size: "1.26GB"
+      description: "CLIP Vision H 모델 (OpenCLIP-ViT-H-14)"
+      
+  # Upscale 모델
+  upscale_models:
+    - name: "remacri_original.pt"
+      url: "https://github.com/Phhofm/models/releases/download/4xRemacri/4xRemacri.pth"
+      size: "67MB"
+      description: "Remacri 4x upscaler"
+      
+  # UNet 모델 (WAN 2.1 비디오 생성)
+  unet:
+    - name: "Wan2.1_I2V_14B_FusionX-Q5_K_M.gguf"
+      url: "https://huggingface.co/QuantStack/Wan2.1_I2V_14B_FusionX-GGUF/resolve/main/Wan2.1_I2V_14B_FusionX-Q5_K_M.gguf"
+      size: "12.3GB"
+      description: "WAN 2.1 Image-to-Video 14B 모델"
+  
+  # UMT5 텍스트 인코더
+  umt5:
+    - name: "umt5-xxl-encoder-Q5_K_M.gguf"
+      url: "https://huggingface.co/city96/umt5-xxl-encoder-gguf/resolve/main/umt5-xxl-encoder-Q5_K_M.gguf"
+      size: "4.15GB"
+      description: "UMT5 XXL Encoder (GGUF)"
+
+# 다운로드 설정
+download_settings:
+  # 이미 존재하는 파일 건너뛰기
+  skip_existing: true
+  
+  # 다운로드 재시도 횟수
+  max_retries: 3
+  
+  # 다운로드 타임아웃 (초)
+  timeout: 3600
+  
+  # 병렬 다운로드 수
+  parallel_downloads: 2

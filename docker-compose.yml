@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  comfyui:
+    build: .
+    ports:
+      - "8188:8188"  # ComfyUI 웹 인터페이스
+    volumes:
+      # 네트워크 볼륨 시뮬레이션 (로컬 디렉토리 마운트)
+      - ./network-volume:/workspace
+      # 출력 파일 저장
+      - ./output:/comfyui/output
+    environment:
+      # 네트워크 볼륨 사용 설정
+      - USE_NETWORK_VOLUME=true
+      - NETWORK_VOLUME_PATH=/workspace
+      # GPU 설정 (선택사항)
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+# 로컬 테스트용 볼륨
+volumes:
+  network-volume:
+  output:
