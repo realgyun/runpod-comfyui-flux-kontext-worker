@@ -227,6 +227,6 @@ else
     echo "Using built-in ComfyUI (no network volume)"
 fi
 
-# ===== RunPod 기본 시작 스크립트 실행 =====
-echo "Starting RunPod ComfyUI worker..."
-exec /start.sh
+# ===== 완료 =====
+echo "Network volume setup completed. RunPod will start the worker..."
+# RunPod worker가 자동으로 시작됨 (handler.py 등)
