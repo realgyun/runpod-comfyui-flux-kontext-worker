@@ -84,6 +84,13 @@ if [ "$USE_NETWORK_VOLUME" = "true" ] && [ -n "$VOLUME_PATH" ]; then
             ln -sfn "$COMFYUI_PATH" /comfyui
         fi
         
+        # models.yaml이 없으면 복사
+        if [ ! -f "$COMFYUI_PATH/models.yaml" ]; then
+            echo "Copying models.yaml to network volume..."
+            cp /etc/comfyui/models.yaml "$COMFYUI_PATH/models.yaml"
+            echo "models.yaml copied successfully"
+        fi
+        
         # 모델 다운로드 (models.yaml 기반)
         if [ "$DOWNLOAD_MODELS" = "true" ] && [ -f "$COMFYUI_PATH/models.yaml" ]; then
             echo "Downloading models based on models.yaml..."
@@ -181,10 +188,8 @@ for model_type, model_list in models.items():
 print("\nModel download completed!")
 EOF
             
-        elif [ -f "$COMFYUI_PATH/models.yaml" ]; then
-            echo "Model downloading is disabled (DOWNLOAD_MODELS=false)"
         else
-            echo "No models.yaml found, skipping model download"
+            echo "Model downloading is disabled (DOWNLOAD_MODELS=false)"
         fi
         
         # Python 의존성 설치

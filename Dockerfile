@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir \
     pyyaml
 
+# models.yaml 파일 복사 (빌드 시 필수)
+COPY models.yaml /etc/comfyui/models.yaml
+
 # 시작 스크립트 복사 및 권한 설정
 COPY start.sh /start-with-network-volume.sh
 RUN chmod +x /start-with-network-volume.sh

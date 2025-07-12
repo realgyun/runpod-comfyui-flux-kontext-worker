@@ -170,6 +170,20 @@ docker-compose up --build
 
 ## 빌드 및 배포
 
+### 빌드 전 필수 사항
+
+```bash
+# models.yaml 파일 생성 (필수!)
+cp models.yaml.example models.yaml
+
+# 필요한 모델 설정 편집
+nano models.yaml
+```
+
+**중요**: `models.yaml` 파일이 없으면 Docker 빌드가 실패합니다.
+
+### Docker 이미지 빌드
+
 ```bash
 # Docker 이미지 빌드
 docker build -t your-dockerhub-username/comfyui-flux-kontext .
